@@ -5,21 +5,24 @@ const menuHamIcon = document.querySelector('.menu')
 const mobileMenu = document.querySelector('.mobile-menu')
 
 const carritoCompra = document.querySelector('.shopping-cart');
-const aside = document.querySelector('.product-detail');
+const shoopingCardContainer = document.querySelector('#shoopingCardContainer');
 const cardsContainer = document.querySelector('.cards-container');
 
+const  productDetail = document.querySelector('#productDetail')
+const  productDetailClose = document.querySelector('.productDetail-close')
 
 
 menuEmail.addEventListener('click', toggleDesktopMenu);
 menuHamIcon.addEventListener('click', toggleMobileMenu);
-carritoCompra.addEventListener('click', toggleCarritoAside);
-    
-                //  estas funciones son para que los diferentes menus se cierren y habran automaticamente una vez se haga click en uno de ellos.
+carritoCompra.addEventListener('click', toggleCarritoshoopingCardContainer);
+productDetailClose.addEventListener('click', closeProductDetail );  
+
+//  estas funciones son para que los diferentes menus se cierren y habran automaticamente una vez se haga click en uno de ellos.
 
             function toggleDesktopMenu(){
-                const isasideClosed = aside.classList.contains('inactive')
-                if (!isasideClosed){
-                    aside.classList.add('inactive')
+                const isshoopingCardContainerClosed = shoopingCardContainer.classList.contains('inactive')
+                if (!isshoopingCardContainerClosed){
+                    shoopingCardContainer.classList.add('inactive')
                 }
                         desktopMenu.classList.toggle('inactive')
                     }
@@ -27,26 +30,48 @@ carritoCompra.addEventListener('click', toggleCarritoAside);
        
                 
              function toggleMobileMenu(){
-                    const isasideClosed = aside.classList.contains('inactive')
-                if (!isasideClosed){
-                    aside.classList.add('inactive')
+                    const isshoopingCardContainerClosed = shoopingCardContainer.classList.contains('inactive')
+                if (!isshoopingCardContainerClosed){
+                    shoopingCardContainer.classList.add('inactive')
                 }
                         mobileMenu.classList.toggle('inactive')
-                    }
 
+                        closeProductDetail();
+            }
+            
+                   
     
 
-            function toggleCarritoAside() {
+            function toggleCarritoshoopingCardContainer() {
                 const isMobileMenuClosed = mobileMenu.classList.contains('inactive');
                 
                 if (!isMobileMenuClosed) {
                 mobileMenu.classList.add('inactive'); 
                 }
+
+                const isProductDetailClosed = productDetail.classList.contains('inactive');
                 
-                aside.classList.toggle('inactive');
+                if (!isProductDetailClosed) {
+                productDetail.classList.add('inactive'); 
+                }
+               
+                shoopingCardContainer.classList.toggle('inactive')
+            }
+                
+
+              
+
+
+            function  openProductDetailAside(){
+               shoopingCardContainer.classList.add('inactive');
+                productDetail.classList.remove('inactive');
             }
 
- const productList = [];
+             function  closeProductDetail(){
+                productDetail.classList.add('inactive');
+             }
+
+const productList = [];
  productList.push ({
     name: 'Bike',
     price: 800,
@@ -77,12 +102,14 @@ carritoCompra.addEventListener('click', toggleCarritoAside);
     image: './bike.jpeg',
  })
 
- for (product of productList){
+function retailProducts(array){
+ for (product of array){
     const productCard = document.createElement('div');
     productCard.classList.add('products-cards');
 
      const Productimg = document.createElement('img');
      Productimg.setAttribute('src', product.image);
+     Productimg.addEventListener('click', openProductDetailAside);
 
       const productInfo = document.createElement('div');
       productInfo.classList.add('products-info');
@@ -114,4 +141,5 @@ carritoCompra.addEventListener('click', toggleCarritoAside);
      cardsContainer.appendChild(productCard);
  }
 
-
+}
+retailProducts(productList);
